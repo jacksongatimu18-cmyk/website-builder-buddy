@@ -2,46 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 99%;
-    --foreground: 222 47% 11%;
+    --background: 210 40% 98%;
+    --foreground: 210 50% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 210 50% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 210 50% 10%;
 
-    --primary: 222 47% 11%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 205 85% 35%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 205 30% 94%;
+    --secondary-foreground: 205 85% 25%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 205 20% 94%;
+    --muted-foreground: 205 15% 45%;
 
-    --accent: 38 92% 50%;
+    --accent: 15 85% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 38 92% 50%;
+    --border: 205 25% 88%;
+    --input: 205 25% 88%;
+    --ring: 15 85% 55%;
 
     --radius: 0.75rem;
 
-    /* Custom tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(222 30% 20%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(28 92% 55%) 100%);
-    --shadow-soft: 0 4px 20px -2px hsl(222 47% 11% / 0.08);
-    --shadow-glow: 0 0 40px hsl(38 92% 50% / 0.15);
-    --shadow-card: 0 10px 40px -10px hsl(222 47% 11% / 0.1);
+    /* SPAC Custom tokens */
+    --ocean-deep: 205 85% 25%;
+    --ocean-mid: 205 75% 45%;
+    --ocean-light: 200 70% 65%;
+    --sky: 195 80% 85%;
+    --warming: 15 85% 55%;
+    --warming-light: 20 90% 65%;
+    
+    --gradient-hero: linear-gradient(135deg, hsl(205 85% 25%) 0%, hsl(205 75% 40%) 50%, hsl(200 70% 55%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(15 85% 55%) 0%, hsl(25 90% 60%) 100%);
+    --gradient-ocean: linear-gradient(180deg, hsl(205 85% 25%) 0%, hsl(200 70% 50%) 100%);
+    --shadow-soft: 0 4px 20px -2px hsl(205 85% 25% / 0.12);
+    --shadow-glow: 0 0 40px hsl(15 85% 55% / 0.2);
+    --shadow-card: 0 10px 40px -10px hsl(205 85% 25% / 0.15);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -54,41 +62,41 @@
   }
 
   .dark {
-    --background: 222 47% 6%;
-    --foreground: 0 0% 98%;
+    --background: 210 50% 6%;
+    --foreground: 210 20% 95%;
 
-    --card: 222 47% 8%;
-    --card-foreground: 0 0% 98%;
+    --card: 210 50% 10%;
+    --card-foreground: 210 20% 95%;
 
-    --popover: 222 47% 8%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 210 50% 10%;
+    --popover-foreground: 210 20% 95%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 200 75% 60%;
+    --primary-foreground: 210 50% 6%;
 
-    --secondary: 222 30% 14%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 210 40% 15%;
+    --secondary-foreground: 200 75% 70%;
 
-    --muted: 222 30% 14%;
-    --muted-foreground: 220 9% 60%;
+    --muted: 210 40% 15%;
+    --muted-foreground: 210 20% 60%;
 
-    --accent: 38 92% 50%;
+    --accent: 15 85% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 222 30% 18%;
-    --input: 222 30% 18%;
-    --ring: 38 92% 50%;
+    --border: 210 40% 18%;
+    --input: 210 40% 18%;
+    --ring: 15 85% 55%;
 
-    --sidebar-background: 222 47% 8%;
+    --sidebar-background: 210 50% 8%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary: 200 75% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 30% 14%;
+    --sidebar-accent: 210 40% 15%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 222 30% 18%;
+    --sidebar-border: 210 40% 18%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
@@ -100,11 +108,11 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     @apply font-semibold tracking-tight;
   }
 }
@@ -115,12 +123,21 @@
     background-image: var(--gradient-accent);
   }
 
+  .text-ocean-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-ocean);
+  }
+
   .bg-hero-gradient {
     background: var(--gradient-hero);
   }
 
   .bg-accent-gradient {
     background: var(--gradient-accent);
+  }
+
+  .bg-ocean-gradient {
+    background: var(--gradient-ocean);
   }
 
   .shadow-soft {

@@ -1,50 +1,85 @@
-import { CheckCircle2 } from "lucide-react";
+import { Target, Eye, Compass, AlertTriangle } from "lucide-react";
 
-const benefits = [
-  "Reduce operational costs by up to 40%",
-  "Increase team productivity by 3x",
-  "Deploy new features in minutes, not days",
-  "24/7 dedicated support team",
+const pillars = [
+  {
+    icon: Target,
+    title: "Mission",
+    description: "To be a catalyst for locally-led climate resilience.",
+    color: "bg-primary/10 text-primary",
+  },
+  {
+    icon: Eye,
+    title: "Vision",
+    description: "Equipping communities and organizations with science-based, policy aligned and community grounded strategies for impactful climate action.",
+    color: "bg-accent/10 text-accent",
+  },
+  {
+    icon: Compass,
+    title: "Goal",
+    description: "Build human and institutional capacity for climate-resilient development and unlock climate finance through investment-ready training.",
+    color: "bg-primary/10 text-primary",
+  },
 ];
 
 const About = () => {
   return (
     <section id="about" className="py-24">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Built for teams who want to{" "}
-              <span className="text-gradient">move faster</span>
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              We understand the challenges of scaling a modern business. That's why we've built 
-              a platform that grows with you, providing the tools and infrastructure you need 
-              at every stage of your journey.
-            </p>
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Bridging <span className="text-primary">Science</span> & <span className="text-accent">Action</span>
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Communities and organizations often struggle to align their initiatives with climate science 
+            and global climate goals. This limits their ability to access climate finance and deliver 
+            sustainable, locally-relevant solutions.
+          </p>
+        </div>
 
-            <ul className="space-y-4">
-              {benefits.map((benefit) => (
-                <li key={benefit} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="text-foreground">{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="relative">
-            <div className="aspect-square rounded-3xl bg-gradient-to-br from-accent/20 via-accent/10 to-transparent p-1">
-              <div className="w-full h-full rounded-3xl bg-card border border-border flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="text-6xl md:text-7xl font-bold text-gradient mb-2">98%</div>
-                  <p className="text-lg text-muted-foreground">Customer Satisfaction</p>
-                </div>
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {pillars.map((pillar) => (
+            <div
+              key={pillar.title}
+              className="p-8 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-card"
+            >
+              <div className={`w-14 h-14 rounded-xl ${pillar.color} flex items-center justify-center mb-6`}>
+                <pillar.icon className="w-7 h-7" />
               </div>
+              <h3 className="text-xl font-semibold mb-3">{pillar.title}</h3>
+              <p className="text-muted-foreground leading-relaxed">{pillar.description}</p>
             </div>
-            <div className="absolute -bottom-6 -left-6 bg-card border border-border rounded-2xl p-6 shadow-card">
-              <div className="text-3xl font-bold text-foreground mb-1">10K+</div>
-              <p className="text-sm text-muted-foreground">Active Users</p>
+          ))}
+        </div>
+
+        {/* Solution Box */}
+        <div className="bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 rounded-3xl p-8 md:p-12 border border-border">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 text-accent font-semibold mb-4">
+                <AlertTriangle className="w-5 h-5" />
+                Our Solution
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                Practical Tools for Climate Action
+              </h3>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                We provide practical tools, strategies and insights that connect science, policy and locally-led action. 
+                Our approach delivers solutions that integrate the Sustainable Development Goals, applies the Leave No One 
+                Behind principle and ensures a Human Rights Based Approach for equity and inclusion.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: "SDG Integration", icon: "🎯" },
+                { label: "Leave No One Behind", icon: "🤝" },
+                { label: "Human Rights Based", icon: "⚖️" },
+                { label: "Community Driven", icon: "🌍" },
+              ].map((item) => (
+                <div key={item.label} className="bg-card rounded-xl p-4 border border-border text-center">
+                  <div className="text-3xl mb-2">{item.icon}</div>
+                  <div className="text-sm font-medium text-foreground">{item.label}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
