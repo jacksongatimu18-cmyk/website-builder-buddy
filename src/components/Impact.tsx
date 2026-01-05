@@ -1,4 +1,5 @@
 import { TreePine, Sprout, Droplets, Zap } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const stats = [
   { value: "100", label: "Youth Climate Negotiators Trained", suffix: "+" },
@@ -37,10 +38,19 @@ const initiatives = [
 ];
 
 const Impact = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation();
+  const { ref: initiativesRef, isVisible: initiativesVisible } = useScrollAnimation();
+
   return (
     <section id="impact" className="py-24">
       <div className="container mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div 
+          ref={headerRef}
+          className={`text-center max-w-2xl mx-auto mb-16 transition-all duration-700 ${
+            headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Our <span className="text-accent">Impact</span>
           </h2>
@@ -50,11 +60,14 @@ const Impact = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-20">
-          {stats.map((stat) => (
+        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-20">
+          {stats.map((stat, index) => (
             <div
               key={stat.label}
-              className="bg-card border border-border rounded-2xl p-6 text-center hover:shadow-card transition-shadow"
+              className={`bg-card border border-border rounded-2xl p-6 text-center hover:shadow-card transition-all duration-500 hover:-translate-y-1 ${
+                statsVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
+              }`}
+              style={{ transitionDelay: `${index * 80}ms` }}
             >
               <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
                 {stat.value}<span className="text-accent">{stat.suffix}</span>
@@ -65,7 +78,12 @@ const Impact = () => {
         </div>
 
         {/* Africa Climate Edition */}
-        <div className="bg-hero-gradient rounded-3xl p-8 md:p-12 overflow-hidden relative">
+        <div 
+          ref={initiativesRef}
+          className={`bg-hero-gradient rounded-3xl p-8 md:p-12 overflow-hidden relative transition-all duration-700 ${
+            initiativesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
           
           <div className="relative z-10">
@@ -83,12 +101,15 @@ const Impact = () => {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {initiatives.map((initiative) => (
+              {initiatives.map((initiative, index) => (
                 <div
                   key={initiative.title}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
+                  className={`bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 transition-all duration-500 hover:bg-white/20 hover:-translate-y-1 ${
+                    initiativesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                  }`}
+                  style={{ transitionDelay: `${200 + index * 100}ms` }}
                 >
-                  <div className={`w-12 h-12 rounded-xl ${initiative.color} flex items-center justify-center mb-4`}>
+                  <div className={`w-12 h-12 rounded-xl ${initiative.color} flex items-center justify-center mb-4 transition-transform duration-300 hover:scale-110`}>
                     <initiative.icon className="w-6 h-6" />
                   </div>
                   <h4 className="text-lg font-semibold text-white mb-2">{initiative.title}</h4>
