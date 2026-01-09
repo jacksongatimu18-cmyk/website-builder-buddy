@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Academy from "./pages/Academy";
 import NotFound from "./pages/NotFound";
+import TextToSpeech from "./components/TextToSpeech";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <TextToSpeech />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
