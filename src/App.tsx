@@ -8,6 +8,7 @@ import Auth from "./pages/Auth";
 import Academy from "./pages/Academy";
 import NotFound from "./pages/NotFound";
 import TextToSpeech from "./components/TextToSpeech";
+import ClimateAssistant from "./components/ClimateAssistant";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
         <TextToSpeech />
+        <ClimateAssistant />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
