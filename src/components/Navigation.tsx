@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { useState } from "react";
 import spacLogo from "@/assets/spac-logo.jpg";
 
@@ -59,7 +59,10 @@ const Navigation = () => {
             {/* Programs hover dropdown */}
             <div className="relative group">
               <a href="#" className={navItemClassName} aria-haspopup="menu" aria-label="Programs">
-                Programs
+                <span className="inline-flex items-center gap-1.5">
+                  Programs
+                  <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
+                </span>
               </a>
 
               <div
