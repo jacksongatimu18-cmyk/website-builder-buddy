@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { User, Session } from "@supabase/supabase-js";
 import spacLogo from "@/assets/spac-logo.jpg";
 import { LogOut, BookOpen, Users, Award, Calendar } from "lucide-react";
+import { useCourses } from "@/hooks/useCourses";
+import { useUserLessonProgress, useUserCertificates } from "@/hooks/useProgress";
+import { CourseCard } from "@/components/academy/CourseCard";
 
 const Academy = () => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  const { data: courses, isLoading: coursesLoading } = useCourses();
+  const { data: progress } = useUserLessonProgress(user?.id);
+  const { data: certificates } = useUserCertificates(user?.id);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -53,6 +60,14 @@ const Academy = () => {
 
   const userName = user.user_metadata?.full_name || user.email?.split("@")[0] || "Student";
 
+  // Calculate course progress for each course
+  const getCourseProgress = (courseId: string) => {
+    // This would need lesson counts per course - simplified for now
+    const courseProgress = progress?.filter((p) => p.status === "completed") || [];
+    // Return 0 for now - will be calculated properly when viewing course
+    return undefined;
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -60,9 +75,9 @@ const Academy = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <a href="/" className="flex items-center gap-2">
+              <Link to="/" className="flex items-center gap-2">
                 <img src={spacLogo} alt="SPAC Network" className="h-10 w-auto" />
-              </a>
+              </Link>
               <span className="text-xl font-bold text-primary">Academy</span>
             </div>
             <div className="flex items-center gap-4">
@@ -93,10 +108,10 @@ const Academy = () => {
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
           {[
-            { icon: BookOpen, label: "Courses Available", value: "12" },
-            { icon: Users, label: "Community Members", value: "1,500+" },
-            { icon: Award, label: "Certificates Earned", value: "0" },
-            { icon: Calendar, label: "Upcoming Events", value: "3" },
+            { icon: BookOpen, label: "Courses Available", value: courses?.length?.toString() || "0" },
+            { icon: Users, label: "Lessons Completed", value: progress?.filter((p) => p.status === "completed").length?.toString() || "0" },
+            { icon: Award, label: "Certificates Earned", value: certificates?.length?.toString() || "0" },
+            { icon: Calendar, label: "In Progress", value: progress?.filter((p) => p.status === "in_progress").length?.toString() || "0" },
           ].map((stat, index) => (
             <div
               key={index}
@@ -109,48 +124,31 @@ const Academy = () => {
           ))}
         </div>
 
-        {/* Featured Courses */}
+        {/* Courses */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Featured Courses</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Climate Science Fundamentals",
-                description: "Understand the science behind climate change and its global impact.",
-                duration: "4 weeks",
-                level: "Beginner",
-              },
-              {
-                title: "Sustainable Development Goals",
-                description: "Learn how to align projects with the UN SDGs for maximum impact.",
-                duration: "6 weeks",
-                level: "Intermediate",
-              },
-              {
-                title: "Climate Policy & Advocacy",
-                description: "Master the art of climate advocacy and policy engagement.",
-                duration: "8 weeks",
-                level: "Advanced",
-              },
-            ].map((course, index) => (
-              <div
-                key={index}
-                className="bg-card border border-border rounded-2xl p-6 hover:shadow-lg transition-all hover:-translate-y-1"
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
-                    {course.level}
-                  </span>
-                  <span className="text-sm text-muted-foreground">{course.duration}</span>
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">{course.title}</h3>
-                <p className="text-muted-foreground mb-4">{course.description}</p>
-                <Button variant="outline" className="w-full">
-                  Start Learning
-                </Button>
-              </div>
-            ))}
-          </div>
+          <h2 className="text-2xl font-bold text-foreground mb-6">Available Courses</h2>
+          {coursesLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-card border border-border rounded-2xl h-80 animate-pulse" />
+              ))}
+            </div>
+          ) : courses && courses.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {courses.map((course) => (
+                <CourseCard
+                  key={course.id}
+                  course={course}
+                  progress={getCourseProgress(course.id)}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 text-muted-foreground">
+              <BookOpen className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <p>No courses available yet. Check back soon!</p>
+            </div>
+          )}
         </section>
 
         {/* Coming Soon */}
@@ -159,7 +157,7 @@ const Academy = () => {
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
             We're continuously adding new courses, resources, and community features. Stay tuned for mentorship programs, live workshops, and certification tracks.
           </p>
-          <Button variant="accent">Get Notified</Button>
+          <Button>Get Notified</Button>
         </section>
       </main>
     </div>
