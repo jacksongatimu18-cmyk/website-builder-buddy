@@ -126,7 +126,7 @@ const ClimateAssistant = () => {
       {/* Chat Toggle Button */}
       <Button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-24 right-6 z-50 h-14 w-14 rounded-full shadow-lg bg-secondary hover:bg-secondary/90"
+        className="fixed bottom-24 right-6 z-50 h-14 w-14 rounded-full shadow-glow bg-accent hover:bg-accent/90 text-accent-foreground"
         size="icon"
       >
         {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
