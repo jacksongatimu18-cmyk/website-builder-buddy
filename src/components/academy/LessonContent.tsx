@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CheckCircle2, ChevronLeft, ChevronRight, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Lesson } from "@/hooks/useCourses";
 import { LessonQuiz } from "./LessonQuiz";
 import { LessonQA } from "./LessonQA";
+import ReactMarkdown from "react-markdown";
 
 interface LessonContentProps {
   lesson: Lesson;
@@ -27,28 +28,6 @@ export function LessonContent({
   hasNext,
 }: LessonContentProps) {
   const [showQuiz, setShowQuiz] = useState(false);
-
-  // Parse markdown to simple HTML (basic implementation)
-  const parseMarkdown = (md: string) => {
-    return md
-      // Headers
-      .replace(/^### (.*$)/gim, '<h3 class="text-lg font-semibold text-foreground mt-6 mb-2">$1</h3>')
-      .replace(/^## (.*$)/gim, '<h2 class="text-xl font-bold text-foreground mt-8 mb-3">$1</h2>')
-      .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-bold text-foreground mt-8 mb-4">$1</h1>')
-      // Bold
-      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
-      // Italic
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      // Lists
-      .replace(/^- (.*$)/gim, '<li class="ml-4 list-disc text-muted-foreground">$1</li>')
-      .replace(/^(\d+)\. (.*$)/gim, '<li class="ml-4 list-decimal text-muted-foreground">$2</li>')
-      // Blockquotes
-      .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-primary pl-4 py-2 my-4 italic text-muted-foreground bg-muted/50 rounded-r">$1</blockquote>')
-      // Paragraphs
-      .replace(/\n\n/g, '</p><p class="text-muted-foreground mb-4">')
-      // Line breaks
-      .replace(/\n/g, '<br />');
-  };
 
   const getYouTubeEmbedUrl = (url: string) => {
     const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
@@ -93,13 +72,43 @@ export function LessonContent({
           </div>
         )}
 
-        {/* Lesson Content */}
-        <div
-          className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{
-            __html: `<p class="text-muted-foreground mb-4">${parseMarkdown(lesson.content_md)}</p>`,
-          }}
-        />
+        {/* Lesson Content - Using react-markdown for safe rendering */}
+        <div className="prose prose-lg max-w-none">
+          <ReactMarkdown
+            components={{
+              h1: ({ children }) => (
+                <h1 className="text-2xl font-bold text-foreground mt-8 mb-4">{children}</h1>
+              ),
+              h2: ({ children }) => (
+                <h2 className="text-xl font-bold text-foreground mt-8 mb-3">{children}</h2>
+              ),
+              h3: ({ children }) => (
+                <h3 className="text-lg font-semibold text-foreground mt-6 mb-2">{children}</h3>
+              ),
+              p: ({ children }) => (
+                <p className="text-muted-foreground mb-4">{children}</p>
+              ),
+              strong: ({ children }) => (
+                <strong className="font-semibold">{children}</strong>
+              ),
+              em: ({ children }) => <em>{children}</em>,
+              ul: ({ children }) => (
+                <ul className="list-disc ml-4 text-muted-foreground">{children}</ul>
+              ),
+              ol: ({ children }) => (
+                <ol className="list-decimal ml-4 text-muted-foreground">{children}</ol>
+              ),
+              li: ({ children }) => <li className="mb-1">{children}</li>,
+              blockquote: ({ children }) => (
+                <blockquote className="border-l-4 border-primary pl-4 py-2 my-4 italic text-muted-foreground bg-muted/50 rounded-r">
+                  {children}
+                </blockquote>
+              ),
+            }}
+          >
+            {lesson.content_md}
+          </ReactMarkdown>
+        </div>
 
         {/* Quiz Section */}
         <div className="mt-12 pt-8 border-t border-border">
