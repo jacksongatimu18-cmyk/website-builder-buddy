@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Tables, Json } from "@/integrations/supabase/types";
 
 export type Quiz = Tables<"quizzes">;
-export type QuizQuestion = Tables<"quiz_questions">;
+export type QuizQuestion = Omit<Tables<"quiz_questions">, "correct_answer">;
 export type UserQuizAttempt = Tables<"user_quiz_attempts">;
 
 export function useLessonQuiz(lessonId: string | undefined) {
@@ -27,14 +27,16 @@ export function useQuizQuestions(quizId: string | undefined) {
   return useQuery({
     queryKey: ["quiz-questions", quizId],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("quiz_questions")
-        .select("*")
-        .eq("quiz_id", quizId!)
+      // Use the public view that excludes correct_answer
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const response = await (supabase as any)
+        .from("quiz_questions_public")
+        .select("id, quiz_id, question, options, explanation, order_index, created_at")
+        .eq("quiz_id", quizId)
         .order("order_index", { ascending: true });
 
-      if (error) throw error;
-      return data as QuizQuestion[];
+      if (response.error) throw response.error;
+      return (response.data || []) as QuizQuestion[];
     },
     enabled: !!quizId,
   });
@@ -64,34 +66,37 @@ export function useSubmitQuizAttempt() {
   return useMutation({
     mutationFn: async ({
       quizId,
-      userId,
       answers,
-      score,
-      passed,
     }: {
       quizId: string;
-      userId: string;
       answers: Record<string, number>;
-      score: number;
-      passed: boolean;
-    }) => {
-      const { data, error } = await supabase
-        .from("user_quiz_attempts")
-        .insert({
-          quiz_id: quizId,
-          user_id: userId,
-          answers: answers as unknown as Json,
-          score,
-          passed,
-        })
-        .select()
-        .single();
+    }): Promise<{ score: number; passed: boolean; attempt_id: string }> => {
+      // Get current session for auth token
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData?.session?.access_token;
 
-      if (error) throw error;
-      return data;
+      if (!token) {
+        throw new Error("Not authenticated");
+      }
+
+      // Call the secure edge function for server-side grading
+      const { data, error } = await supabase.functions.invoke("submit-quiz", {
+        body: { quiz_id: quizId, answers },
+      });
+
+      if (error) {
+        console.error("Edge function error:", error);
+        throw new Error(error.message || "Failed to submit quiz");
+      }
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      return data as { score: number; passed: boolean; attempt_id: string };
     },
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["quiz-attempts", variables.quizId, variables.userId] });
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["quiz-attempts", variables.quizId] });
     },
   });
 }

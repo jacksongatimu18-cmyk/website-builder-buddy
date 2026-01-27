@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle2, XCircle, Award, RotateCcw } from "lucide-react";
+import { CheckCircle2, XCircle, Award, RotateCcw, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLessonQuiz, useQuizQuestions, useUserQuizAttempts, useSubmitQuizAttempt } from "@/hooks/useQuiz";
 import { cn } from "@/lib/utils";
@@ -19,6 +19,8 @@ export function LessonQuiz({ lessonId, userId, onPass }: LessonQuizProps) {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
   const [result, setResult] = useState<{ score: number; passed: boolean } | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   if (quizLoading || questionsLoading) {
     return (
@@ -43,29 +45,27 @@ export function LessonQuiz({ lessonId, userId, onPass }: LessonQuizProps) {
   const handleSubmit = async () => {
     if (!questions) return;
 
-    let correct = 0;
-    questions.forEach((q) => {
-      if (answers[q.id] === q.correct_answer) {
-        correct++;
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      // Submit to secure edge function - server calculates score
+      const result = await submitAttempt.mutateAsync({
+        quizId: quiz.id,
+        answers,
+      });
+
+      setResult({ score: result.score, passed: result.passed });
+      setSubmitted(true);
+
+      if (result.passed) {
+        onPass();
       }
-    });
-
-    const score = Math.round((correct / questions.length) * 100);
-    const passed = score >= quiz.passing_score;
-
-    await submitAttempt.mutateAsync({
-      quizId: quiz.id,
-      userId,
-      answers,
-      score,
-      passed,
-    });
-
-    setResult({ score, passed });
-    setSubmitted(true);
-
-    if (passed) {
-      onPass();
+    } catch (err) {
+      console.error("Quiz submission error:", err);
+      setError(err instanceof Error ? err.message : "Failed to submit quiz");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -73,6 +73,7 @@ export function LessonQuiz({ lessonId, userId, onPass }: LessonQuizProps) {
     setAnswers({});
     setSubmitted(false);
     setResult(null);
+    setError(null);
   };
 
   const allAnswered = questions.every((q) => answers[q.id] !== undefined);
@@ -88,6 +89,13 @@ export function LessonQuiz({ lessonId, userId, onPass }: LessonQuizProps) {
           </span>
         )}
       </div>
+
+      {/* Error Banner */}
+      {error && (
+        <div className="p-4 rounded-xl mb-6 bg-red-500/10 border border-red-500/20">
+          <p className="text-red-600 text-sm">{error}</p>
+        </div>
+      )}
 
       {/* Result Banner */}
       {result && (
@@ -128,8 +136,6 @@ export function LessonQuiz({ lessonId, userId, onPass }: LessonQuizProps) {
         {questions.map((question, qIndex) => {
           const options = question.options as string[];
           const userAnswer = answers[question.id];
-          const isCorrect = submitted && userAnswer === question.correct_answer;
-          const isWrong = submitted && userAnswer !== undefined && userAnswer !== question.correct_answer;
 
           return (
             <div key={question.id} className="bg-muted/30 rounded-xl p-5">
@@ -140,21 +146,17 @@ export function LessonQuiz({ lessonId, userId, onPass }: LessonQuizProps) {
               <div className="space-y-2">
                 {options.map((option, oIndex) => {
                   const isSelected = userAnswer === oIndex;
-                  const showCorrect = submitted && oIndex === question.correct_answer;
-                  const showWrong = submitted && isSelected && oIndex !== question.correct_answer;
 
                   return (
                     <button
                       key={oIndex}
                       onClick={() => handleSelect(question.id, oIndex)}
-                      disabled={submitted}
+                      disabled={submitted || submitting}
                       className={cn(
                         "w-full p-3 rounded-lg text-left transition-colors flex items-center gap-3",
-                        !submitted && isSelected && "bg-primary/10 border-2 border-primary",
-                        !submitted && !isSelected && "bg-card border-2 border-transparent hover:border-primary/50",
-                        showCorrect && "bg-green-500/10 border-2 border-green-500",
-                        showWrong && "bg-red-500/10 border-2 border-red-500",
-                        submitted && !showCorrect && !showWrong && "bg-card border-2 border-transparent opacity-60"
+                        isSelected && "bg-primary/10 border-2 border-primary",
+                        !isSelected && "bg-card border-2 border-transparent hover:border-primary/50",
+                        (submitted || submitting) && "opacity-60 cursor-not-allowed"
                       )}
                     >
                       <span
@@ -166,14 +168,12 @@ export function LessonQuiz({ lessonId, userId, onPass }: LessonQuizProps) {
                         {String.fromCharCode(65 + oIndex)}
                       </span>
                       <span className="flex-1">{option}</span>
-                      {showCorrect && <CheckCircle2 className="h-5 w-5 text-green-600" />}
-                      {showWrong && <XCircle className="h-5 w-5 text-red-600" />}
                     </button>
                   );
                 })}
               </div>
 
-              {/* Explanation */}
+              {/* Explanation - only show after submission if available */}
               {submitted && question.explanation && (
                 <div className="mt-4 p-3 bg-blue-500/10 rounded-lg">
                   <p className="text-sm text-muted-foreground">
@@ -189,8 +189,19 @@ export function LessonQuiz({ lessonId, userId, onPass }: LessonQuizProps) {
       {/* Submit Button */}
       {!submitted && (
         <div className="mt-6">
-          <Button onClick={handleSubmit} disabled={!allAnswered} className="w-full">
-            Submit Quiz
+          <Button 
+            onClick={handleSubmit} 
+            disabled={!allAnswered || submitting} 
+            className="w-full"
+          >
+            {submitting ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                Submitting...
+              </>
+            ) : (
+              "Submit Quiz"
+            )}
           </Button>
           {!allAnswered && (
             <p className="text-sm text-muted-foreground text-center mt-2">
