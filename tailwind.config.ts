@@ -15,7 +15,7 @@ export default {
   	extend: {
   		fontFamily: {
   			sans: [
-  				'Inter',
+  				'Poppins',
   				'ui-sans-serif',
   				'system-ui',
   				'-apple-system',
@@ -28,7 +28,7 @@ export default {
   				'sans-serif'
   			],
   			serif: [
-  				'Lora',
+  				'Merriweather',
   				'ui-serif',
   				'Georgia',
   				'Cambria',
@@ -37,7 +37,7 @@ export default {
   				'serif'
   			],
   			mono: [
-  				'Space Mono',
+  				'JetBrains Mono',
   				'ui-monospace',
   				'SFMono-Regular',
   				'Menlo',
@@ -127,7 +127,7 @@ export default {
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
-  			'float': 'float 3s ease-in-out infinite'
+  			float: 'float 3s ease-in-out infinite'
   		},
   		boxShadow: {
   			'2xs': 'var(--shadow-2xs)',
