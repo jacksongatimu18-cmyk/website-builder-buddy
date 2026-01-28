@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Mail } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import ContactDialog from "./ContactDialog";
+import PartnerDialog from "./PartnerDialog";
 
 const CTA = () => {
   const { ref, isVisible } = useScrollAnimation();
   const [contactOpen, setContactOpen] = useState(false);
+  const [partnerOpen, setPartnerOpen] = useState(false);
 
   return (
     <section id="contact" className="py-24 bg-secondary/50">
@@ -58,7 +60,7 @@ const CTA = () => {
                 variant="hero" 
                 size="xl" 
                 className="hover:scale-105 transition-transform"
-                onClick={() => setContactOpen(true)}
+                onClick={() => setPartnerOpen(true)}
               >
                 Partner With Us
                 <ArrowRight className="w-5 h-5 ml-1" />
@@ -74,6 +76,7 @@ const CTA = () => {
             </div>
 
             <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
+            <PartnerDialog open={partnerOpen} onOpenChange={setPartnerOpen} />
 
             {/* Theory of Change */}
             <div 
