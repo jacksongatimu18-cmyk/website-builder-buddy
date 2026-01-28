@@ -79,8 +79,8 @@ const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
     {
       icon: Mail,
       label: "Email Us",
-      value: "contact@spacnetwork.org", // Placeholder - user will provide
-      href: "mailto:contact@spacnetwork.org",
+      value: "thespacnetwork@gmail.com",
+      href: "mailto:thespacnetwork@gmail.com",
     },
   ];
 
