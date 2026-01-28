@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Mail } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import ContactDialog from "./ContactDialog";
 
 const CTA = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const [contactOpen, setContactOpen] = useState(false);
 
   return (
     <section id="contact" className="py-24 bg-secondary/50">
@@ -51,14 +54,26 @@ const CTA = () => {
               }`}
               style={{ transitionDelay: "250ms" }}
             >
-              <Button variant="hero" size="xl" className="hover:scale-105 transition-transform">
+              <Button 
+                variant="hero" 
+                size="xl" 
+                className="hover:scale-105 transition-transform"
+                onClick={() => setContactOpen(true)}
+              >
                 Partner With Us
                 <ArrowRight className="w-5 h-5 ml-1" />
               </Button>
-              <Button variant="outline" size="xl" className="hover:scale-105 transition-transform">
+              <Button 
+                variant="outline" 
+                size="xl" 
+                className="hover:scale-105 transition-transform"
+                onClick={() => setContactOpen(true)}
+              >
                 Contact Us
               </Button>
             </div>
+
+            <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
 
             {/* Theory of Change */}
             <div 
