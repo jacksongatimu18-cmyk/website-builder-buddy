@@ -89,7 +89,7 @@ const PartnerDialog = ({ open, onOpenChange }: PartnerDialogProps) => {
             <DialogTitle className="text-xl font-bold">Partner With Us</DialogTitle>
           </div>
           <DialogDescription>
-            Join us in building climate resilience. Fill out the form below and tell us how you'd like to collaborate.
+            Join us in building climate resilience. Fill out the form below and tell us how you'd like to collaborate and we'll get back to you.
           </DialogDescription>
         </DialogHeader>
 
