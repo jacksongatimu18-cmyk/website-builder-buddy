@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Phone, Mail, MessageSquare, Send, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Phone, Mail, MessageSquare, Send, Linkedin, Instagram } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface ContactDialogProps {
@@ -73,8 +73,8 @@ const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
     {
       icon: Phone,
       label: "Call Us",
-      value: "+1 (XXX) XXX-XXXX", // Placeholder - user will provide
-      href: "tel:+1XXXXXXXXXX",
+      value: "+254 746 268 854",
+      href: "tel:+254746268854",
     },
     {
       icon: Mail,
@@ -86,19 +86,14 @@ const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
 
   const socialLinks = [
     {
-      icon: Twitter,
-      label: "Twitter",
-      href: "#", // Placeholder - user will provide
-    },
-    {
       icon: Linkedin,
       label: "LinkedIn",
-      href: "#", // Placeholder - user will provide
+      href: "https://www.linkedin.com/company/the-spac-network/",
     },
     {
       icon: Instagram,
       label: "Instagram",
-      href: "#", // Placeholder - user will provide
+      href: "https://www.instagram.com/thespacnetwork/",
     },
   ];
 
