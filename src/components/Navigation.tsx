@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useState } from "react";
 import spacLogo from "@/assets/spac-logo.jpg";
@@ -40,7 +39,7 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItemClassName =
-    "text-muted-foreground hover:text-foreground transition-all duration-200 font-medium px-3 py-2 rounded-full hover:bg-accent";
+    "text-foreground hover:text-primary transition-all duration-200 font-semibold px-3 py-2 rounded-full hover:bg-accent/50";
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
@@ -108,11 +107,6 @@ const Navigation = () => {
             </a>
           </div>
 
-          <div className="hidden md:flex items-center gap-4">
-            <Button variant="accent" size="default">
-              Get Involved
-            </Button>
-          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -128,12 +122,12 @@ const Navigation = () => {
         {isOpen && (
           <div className="md:hidden py-4 border-t border-border animate-fade-in">
             <div className="flex flex-col gap-4">
-              <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors py-2 font-medium">
+              <a href="#about" className="text-foreground hover:text-primary transition-colors py-2 font-semibold">
                 About
               </a>
 
               <div className="py-2">
-                <p className="text-muted-foreground font-medium">Programs</p>
+                <p className="text-foreground font-semibold">Programs</p>
                 <div className="mt-2 pl-3 border-l border-border flex flex-col gap-2">
                   {programs.map((p) => (
                     <div key={p.title} className="rounded-lg px-2 py-2 hover:bg-accent transition-colors">
@@ -144,17 +138,12 @@ const Navigation = () => {
                 </div>
               </div>
 
-              <a href="#impact" className="text-muted-foreground hover:text-foreground transition-colors py-2 font-medium">
+              <a href="#impact" className="text-foreground hover:text-primary transition-colors py-2 font-semibold">
                 Impact
               </a>
-              <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors py-2 font-medium">
+              <a href="#contact" className="text-foreground hover:text-primary transition-colors py-2 font-semibold">
                 Contact
               </a>
-              <div className="pt-4">
-                <Button variant="accent" className="w-full">
-                  Get Involved
-                </Button>
-              </div>
             </div>
           </div>
         )}
