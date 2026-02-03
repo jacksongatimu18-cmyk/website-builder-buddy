@@ -56,16 +56,16 @@ const About = () => {
 
         {/* Solution Box */}
         <div ref={solutionRef} className={`bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 rounded-3xl p-8 md:p-12 border border-border transition-all duration-700 ${solutionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="grid lg:grid-cols-2 gap-10 items-center border-[#e6f5f9] rounded-none shadow-2xl bg-violet-200">
+          <div className="grid lg:grid-cols-2 gap-10 items-center bg-card/80 backdrop-blur-sm rounded-2xl p-8 shadow-card">
             <div>
-              <div className="inline-flex items-center gap-2 text-accent font-semibold mb-4">
-                <AlertTriangle className="w-5 h-5" />
+              <div className="inline-flex items-center gap-2 text-accent font-bold uppercase tracking-widest text-xs mb-5">
+                <AlertTriangle className="w-4 h-4" />
                 Our Solution
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              <h3 className="text-3xl md:text-4xl font-extrabold mb-5 leading-tight tracking-tight text-ocean-gradient">
                 Practical Tools for Climate Action
               </h3>
-              <p className="text-muted-foreground leading-relaxed mb-6">
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed font-light">
                 We provide practical tools, strategies and insights that connect science, policy and locally-led action. 
                 Our approach delivers solutions that integrate the Sustainable Development Goals, applies the Leave No One 
                 Behind principle and ensures a Human Rights Based Approach for equity and inclusion.
@@ -84,11 +84,11 @@ const About = () => {
             }, {
               label: "Community Driven",
               icon: "🌍"
-            }].map((item, index) => <div key={item.label} className={`bg-card rounded-xl p-4 border border-border text-center transition-all duration-500 hover:scale-105 ${solutionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{
+            }].map((item, index) => <div key={item.label} className={`bg-card rounded-xl p-5 border border-border text-center transition-all duration-500 hover:scale-105 hover:shadow-lg ${solutionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{
               transitionDelay: `${300 + index * 100}ms`
             }}>
-                  <div className="text-3xl mb-2">{item.icon}</div>
-                  <div className="text-sm font-medium text-foreground">{item.label}</div>
+                  <div className="text-4xl mb-3">{item.icon}</div>
+                  <div className="text-sm font-semibold tracking-wide text-foreground">{item.label}</div>
                 </div>)}
             </div>
           </div>
