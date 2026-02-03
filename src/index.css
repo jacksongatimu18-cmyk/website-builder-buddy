@@ -15,41 +15,45 @@
     --popover: 0 0% 100%;
     --popover-foreground: 210 50% 10%;
 
-    --primary: 205 85% 35%;
+    --primary: 200 55% 38%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 205 30% 94%;
-    --secondary-foreground: 205 85% 25%;
+    --secondary: 195 35% 94%;
+    --secondary-foreground: 205 55% 30%;
 
-    --muted: 205 20% 94%;
-    --muted-foreground: 205 15% 45%;
+    --muted: 195 25% 94%;
+    --muted-foreground: 200 20% 45%;
 
-    --accent: 15 85% 55%;
+    --accent: 22 65% 55%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 65% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 205 25% 88%;
-    --input: 205 25% 88%;
-    --ring: 15 85% 55%;
+    --border: 195 20% 88%;
+    --input: 195 20% 88%;
+    --ring: 22 65% 55%;
 
     --radius: 0.75rem;
 
-    /* SPAC Custom tokens */
-    --ocean-deep: 205 85% 25%;
-    --ocean-mid: 205 75% 45%;
-    --ocean-light: 200 70% 65%;
-    --sky: 195 80% 85%;
-    --warming: 15 85% 55%;
-    --warming-light: 20 90% 65%;
+    /* SPAC Custom tokens - Subtle gradient theme */
+    --ocean-deep: 205 65% 28%;
+    --ocean-mid: 200 55% 42%;
+    --ocean-light: 195 50% 58%;
+    --ocean-soft: 190 45% 72%;
+    --sky: 188 40% 82%;
+    --warming: 18 70% 52%;
+    --warming-mid: 22 65% 58%;
+    --warming-light: 28 60% 65%;
     
-    --gradient-hero: linear-gradient(135deg, hsl(205 85% 25%) 0%, hsl(205 75% 40%) 50%, hsl(200 70% 55%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(15 85% 55%) 0%, hsl(25 90% 60%) 100%);
-    --gradient-ocean: linear-gradient(180deg, hsl(205 85% 25%) 0%, hsl(200 70% 50%) 100%);
-    --shadow-soft: 0 4px 20px -2px hsl(205 85% 25% / 0.12);
-    --shadow-glow: 0 0 40px hsl(15 85% 55% / 0.2);
-    --shadow-card: 0 10px 40px -10px hsl(205 85% 25% / 0.15);
+    /* Subtle flowing gradients */
+    --gradient-hero: linear-gradient(145deg, hsl(205 65% 28%) 0%, hsl(200 55% 38%) 35%, hsl(195 50% 48%) 65%, hsl(190 45% 58%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(18 70% 52%) 0%, hsl(22 65% 58%) 50%, hsl(28 60% 65%) 100%);
+    --gradient-ocean: linear-gradient(180deg, hsl(205 65% 28%) 0%, hsl(200 55% 42%) 40%, hsl(195 50% 58%) 100%);
+    --gradient-subtle: linear-gradient(135deg, hsl(205 65% 28%) 0%, hsl(200 55% 42%) 30%, hsl(22 65% 58%) 70%, hsl(28 60% 65%) 100%);
+    --shadow-soft: 0 4px 24px -4px hsl(205 65% 28% / 0.10);
+    --shadow-glow: 0 0 50px hsl(18 70% 52% / 0.15);
+    --shadow-card: 0 8px 32px -8px hsl(205 65% 28% / 0.12);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -71,24 +75,24 @@
     --popover: 210 50% 10%;
     --popover-foreground: 210 20% 95%;
 
-    --primary: 200 75% 60%;
+    --primary: 195 55% 55%;
     --primary-foreground: 210 50% 6%;
 
-    --secondary: 210 40% 15%;
-    --secondary-foreground: 200 75% 70%;
+    --secondary: 210 35% 15%;
+    --secondary-foreground: 195 55% 65%;
 
-    --muted: 210 40% 15%;
-    --muted-foreground: 210 20% 60%;
+    --muted: 210 35% 15%;
+    --muted-foreground: 200 25% 55%;
 
-    --accent: 15 85% 55%;
+    --accent: 22 65% 55%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62% 30%;
+    --destructive: 0 55% 35%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 210 40% 18%;
-    --input: 210 40% 18%;
-    --ring: 15 85% 55%;
+    --border: 210 35% 18%;
+    --input: 210 35% 18%;
+    --ring: 22 65% 55%;
 
     --sidebar-background: 210 50% 8%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -138,6 +142,10 @@
 
   .bg-ocean-gradient {
     background: var(--gradient-ocean);
+  }
+
+  .bg-subtle-gradient {
+    background: var(--gradient-subtle);
   }
 
   .shadow-soft {
