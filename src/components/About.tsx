@@ -56,7 +56,7 @@ const About = () => {
 
         {/* Solution Box */}
         <div ref={solutionRef} className={`bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 rounded-3xl p-8 md:p-12 border border-border transition-all duration-700 ${solutionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="grid lg:grid-cols-2 gap-10 items-center px-0 mx-0 bg-primary rounded-none shadow-2xl border-secondary-foreground">
+          <div className="grid lg:grid-cols-2 gap-10 items-center bg-secondary">
             <div>
               <div className="inline-flex items-center gap-2 text-accent font-semibold mb-4">
                 <AlertTriangle className="w-5 h-5" />
