@@ -71,7 +71,7 @@ const About = () => {
                 Behind principle and ensures a Human Rights Based Approach for equity and inclusion.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4 bg-secondary-foreground">
+            <div className="grid grid-cols-2 gap-4 bg-destructive">
               {[{
               label: "SDG Integration",
               icon: "🎯"
