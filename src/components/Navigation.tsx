@@ -99,6 +99,9 @@ const Navigation = () => {
               </div>
             </div>
 
+            <a href="/auth" className={navItemClassName}>
+              SPAC Academy
+            </a>
             <a href="#impact" className={navItemClassName}>
               Impact
             </a>
@@ -138,6 +141,9 @@ const Navigation = () => {
                 </div>
               </div>
 
+              <a href="/auth" className="text-foreground hover:text-primary transition-colors py-2 font-semibold">
+                SPAC Academy
+              </a>
               <a href="#impact" className="text-foreground hover:text-primary transition-colors py-2 font-semibold">
                 Impact
               </a>
