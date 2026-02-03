@@ -43,7 +43,7 @@ const Impact = () => {
   const { ref: initiativesRef, isVisible: initiativesVisible } = useScrollAnimation();
 
   return (
-    <section id="impact" className="py-24">
+    <section id="impact" className="py-24 section-glass-light">
       <div className="container mx-auto px-6">
         <div 
           ref={headerRef}

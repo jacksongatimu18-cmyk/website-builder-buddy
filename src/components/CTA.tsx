@@ -11,7 +11,7 @@ const CTA = () => {
   const [partnerOpen, setPartnerOpen] = useState(false);
 
   return (
-    <section id="contact" className="py-24 bg-secondary/50">
+    <section id="contact" className="py-24 section-glass">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <div 
