@@ -42,7 +42,7 @@ const Navigation = () => {
     "text-foreground hover:text-primary transition-all duration-200 font-semibold px-3 py-2 rounded-full hover:bg-accent/50";
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-sm">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           <a href="/" className="flex items-center gap-2">
