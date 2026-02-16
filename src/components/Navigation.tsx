@@ -51,9 +51,36 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#about" className={navItemClassName}>
-              About
-            </a>
+            {/* About hover dropdown */}
+            <div className="relative group/about">
+              <a href="#about" className={navItemClassName} aria-haspopup="menu" aria-label="About">
+                <span className="inline-flex items-center gap-1.5">
+                  About
+                  <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover/about:rotate-180" />
+                </span>
+              </a>
+              <div
+                className="pointer-events-none opacity-0 translate-y-1 group-hover/about:pointer-events-auto group-hover/about:opacity-100 group-hover/about:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-3 z-50"
+                role="menu"
+              >
+                <div className="w-[220px] rounded-2xl border border-border bg-popover text-popover-foreground shadow-card overflow-hidden">
+                  <ul className="p-2">
+                    <li>
+                      <a href="#about" className="block rounded-xl px-3 py-3 hover:bg-accent transition-colors">
+                        <p className="text-sm font-medium">About Us</p>
+                        <p className="text-xs text-muted-foreground mt-1">Our mission & vision</p>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/team" className="block rounded-xl px-3 py-3 hover:bg-accent transition-colors">
+                        <p className="text-sm font-medium">Meet the Team</p>
+                        <p className="text-xs text-muted-foreground mt-1">The people behind SPAC</p>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
 
             {/* Programs hover dropdown */}
             <div className="relative group">
@@ -127,6 +154,9 @@ const Navigation = () => {
             <div className="flex flex-col gap-4">
               <a href="#about" className="text-foreground hover:text-primary transition-colors py-2 font-semibold">
                 About
+              </a>
+              <a href="/team" className="text-foreground hover:text-primary transition-colors py-2 font-semibold pl-3 border-l border-border">
+                Meet the Team
               </a>
 
               <div className="py-2">
