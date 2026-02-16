@@ -9,23 +9,13 @@ const programs = [
     mode: "Physical",
   },
   {
-    title: "Climate E-ntaractive",
-    description: "Interactive sessions building a well-coordinated and aligned youth network for climate action.",
-    mode: "Physical",
-  },
-  {
     title: "Living Books",
     description: "Documented stories to inspire, inform and educate on indigenous and cultural perspectives of climate action.",
     mode: "Hybrid",
   },
   {
-    title: "The Climate Challenge",
-    description: "Nurturing a connected, committed and collaborative community of climate champions.",
-    mode: "Hybrid",
-  },
-  {
-    title: "Climate Futures Plus",
-    description: "Advanced training and mentorship program preparing the next generation of climate leaders.",
+    title: "LIVErary",
+    description: "A storytelling program amplifying voices and narratives for climate awareness and action.",
     mode: "Hybrid",
   },
   {
@@ -92,36 +82,35 @@ const Navigation = () => {
               </a>
 
               <div
-                className="pointer-events-none opacity-0 translate-y-1 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-3 z-50"
+                className="pointer-events-none opacity-0 translate-y-1 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-1/2 -translate-x-1/2 top-full pt-3 z-50"
                 role="menu"
               >
-                <div className="w-[360px] rounded-2xl border border-border bg-popover text-popover-foreground shadow-card overflow-hidden">
+                <div className="w-[700px] rounded-2xl border border-border bg-popover text-popover-foreground shadow-card overflow-hidden">
                   <div className="px-4 py-3 border-b border-border">
                     <p className="text-sm font-semibold">Programs</p>
                     <p className="text-xs text-muted-foreground">Explore how to get involved</p>
                   </div>
-                  <ul className="p-2">
+                  <div className="grid grid-cols-2 gap-1 p-2">
                     {programs.map((p) => (
-                      <li key={p.title}>
-                        <button
-                          type="button"
-                          className="w-full text-left rounded-xl px-3 py-3 hover:bg-accent transition-colors"
-                        >
-                          <div className="flex items-start justify-between gap-3">
-                            <div>
-                              <p className="text-sm font-medium">{p.title}</p>
-                              <p className="text-xs text-muted-foreground leading-relaxed mt-1">
-                                {p.description}
-                              </p>
-                            </div>
-                            <span className="shrink-0 text-[11px] px-2 py-1 rounded-full bg-muted text-muted-foreground">
-                              {p.mode}
-                            </span>
+                      <button
+                        key={p.title}
+                        type="button"
+                        className="text-left rounded-xl px-3 py-3 hover:bg-accent transition-colors"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="text-sm font-medium">{p.title}</p>
+                            <p className="text-xs text-muted-foreground leading-relaxed mt-1">
+                              {p.description}
+                            </p>
                           </div>
-                        </button>
-                      </li>
+                          <span className="shrink-0 text-[11px] px-2 py-1 rounded-full bg-muted text-muted-foreground">
+                            {p.mode}
+                          </span>
+                        </div>
+                      </button>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               </div>
             </div>
