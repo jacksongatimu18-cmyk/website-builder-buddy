@@ -1,4 +1,4 @@
-import { Users, Mic, BookOpen, Trophy, Rocket, GraduationCap } from "lucide-react";
+import { Users, Mic, BookOpen, GraduationCap } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const programs = [
@@ -10,30 +10,16 @@ const programs = [
     color: "from-primary to-primary/70",
   },
   {
-    icon: Mic,
-    title: "Climate E-ntaractive",
-    description: "Interactive sessions building a well-coordinated and aligned youth network for climate action.",
-    mode: "Physical",
-    color: "from-accent to-accent/70",
-  },
-  {
     icon: BookOpen,
     title: "Living Books",
     description: "Documented stories to inspire, inform and educate on indigenous and cultural perspectives of climate action.",
     mode: "Hybrid",
-    color: "from-primary to-primary/70",
-  },
-  {
-    icon: Trophy,
-    title: "The Climate Challenge",
-    description: "Nurturing a connected, committed and collaborative community of climate champions.",
-    mode: "Hybrid",
     color: "from-accent to-accent/70",
   },
   {
-    icon: Rocket,
-    title: "Climate Futures Plus",
-    description: "Advanced training and mentorship program preparing the next generation of climate leaders.",
+    icon: Mic,
+    title: "LIVErary",
+    description: "A storytelling program amplifying voices and narratives for climate awareness and action.",
     mode: "Hybrid",
     color: "from-primary to-primary/70",
   },
