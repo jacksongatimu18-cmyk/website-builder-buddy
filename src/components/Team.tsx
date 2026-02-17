@@ -39,12 +39,31 @@ const teamMembers = [
   },
 ];
 
+// Staggered sizes and rotations for a dynamic, magazine-style feel
+const cardStyles = [
+  "md:col-span-2 md:row-span-2", // Isaac - large featured
+  "md:col-span-1 md:row-span-1", // Debra
+  "md:col-span-1 md:row-span-1", // Jackson
+  "md:col-span-1 md:row-span-1", // Cynthia
+  "md:col-span-1 md:row-span-1", // Ryan
+  "md:col-span-2 md:row-span-1", // Melanie - wide
+];
+
+const rotations = [
+  "-rotate-1",
+  "rotate-2",
+  "-rotate-1",
+  "rotate-1",
+  "-rotate-2",
+  "rotate-1",
+];
+
 const Team = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation();
 
   return (
-    <section id="team" className="py-24 section-glass-light">
+    <section id="team" className="py-24 section-glass-light overflow-hidden">
       <div className="container mx-auto px-6">
         <div
           ref={headerRef}
@@ -65,29 +84,38 @@ const Team = () => {
 
         <div
           ref={gridRef}
-          className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 max-w-5xl mx-auto auto-rows-[180px] md:auto-rows-[200px]"
         >
           {teamMembers.map((member, index) => (
             <div
               key={member.name}
-              className={`group text-center transition-all duration-500 ${
-                gridVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              className={`group relative rounded-2xl overflow-hidden shadow-card cursor-pointer
+                ${cardStyles[index]}
+                ${rotations[index]}
+                hover:rotate-0 hover:scale-105 hover:shadow-glow hover:z-10
+                transition-all duration-500 ease-out
+                ${gridVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}
+              `}
+              style={{ transitionDelay: `${index * 80}ms` }}
             >
-              <div className="relative mx-auto w-36 h-36 md:w-44 md:h-44 mb-4 rounded-2xl overflow-hidden shadow-card group-hover:shadow-glow transition-shadow duration-300">
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+              <img
+                src={member.image}
+                alt={member.name}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                loading="lazy"
+              />
+              {/* Gradient overlay - always visible at bottom, full on hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
+              
+              {/* Name badge - pinned to bottom */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
+                <h3 className="text-white text-sm md:text-base font-bold tracking-tight leading-tight">
+                  {member.name}
+                </h3>
+                <p className="text-white/80 text-xs md:text-sm font-medium mt-0.5">
+                  {member.role}
+                </p>
               </div>
-              <h3 className="text-base md:text-lg font-bold tracking-tight text-foreground">
-                {member.name}
-              </h3>
-              <p className="text-sm text-accent font-medium mt-1">{member.role}</p>
             </div>
           ))}
         </div>
