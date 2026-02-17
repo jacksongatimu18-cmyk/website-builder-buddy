@@ -48,6 +48,7 @@ const teamMembers = [
   },
 ];
 
+// Alternating layout: image left/right for a zigzag storytelling feel
 const TeamPage = () => {
   const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation();
 
@@ -75,33 +76,43 @@ const TeamPage = () => {
           </div>
         </section>
 
-        {/* Team Grid */}
+        {/* Team - Zigzag Cards */}
         <section className="py-20 md:py-28 section-glass-light">
-          <div className="container mx-auto px-6">
-            <div
-              ref={gridRef}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-5xl mx-auto"
-            >
-              {teamMembers.map((member, index) => (
+          <div ref={gridRef} className="container mx-auto px-6 max-w-5xl space-y-8 md:space-y-0">
+            {teamMembers.map((member, index) => {
+              const isEven = index % 2 === 0;
+              return (
                 <div
                   key={member.name}
-                  className={`group bg-card rounded-2xl border border-border overflow-hidden shadow-card hover:shadow-glow transition-all duration-500 ${
-                    gridVisible
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-8"
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
+                  className={`group flex flex-col md:flex-row items-center gap-6 md:gap-10
+                    ${isEven ? "md:flex-row" : "md:flex-row-reverse"}
+                    ${index > 0 ? "md:-mt-8" : ""}
+                    ${isEven ? "md:ml-0 md:mr-16" : "md:mr-0 md:ml-16"}
+                    transition-all duration-600
+                    ${gridVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
+                  `}
+                  style={{ transitionDelay: `${index * 120}ms` }}
                 >
-                  <div className="aspect-[3/4] overflow-hidden">
+                  {/* Photo */}
+                  <div
+                    className={`relative w-48 h-48 md:w-56 md:h-56 flex-shrink-0 rounded-3xl overflow-hidden shadow-card
+                      ${isEven ? "-rotate-2" : "rotate-2"}
+                      group-hover:rotate-0 group-hover:scale-105 group-hover:shadow-glow
+                      transition-all duration-500
+                    `}
+                  >
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       loading="lazy"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold tracking-tight text-foreground">
+
+                  {/* Info */}
+                  <div className={`text-center md:text-left ${isEven ? "" : "md:text-right"} max-w-sm`}>
+                    <h3 className="text-xl font-bold tracking-tight text-foreground">
                       {member.name}
                     </h3>
                     <p className="text-sm font-semibold text-accent mt-1">
@@ -112,8 +123,8 @@ const TeamPage = () => {
                     </p>
                   </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </section>
 
