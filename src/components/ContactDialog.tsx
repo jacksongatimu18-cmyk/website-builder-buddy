@@ -73,8 +73,8 @@ const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
     {
       icon: Phone,
       label: "Call Us",
-      value: "+254 746 268 854",
-      href: "tel:+254746268854",
+      value: "+254 768 560 334",
+      href: "tel:+254768560334",
     },
     {
       icon: Mail,

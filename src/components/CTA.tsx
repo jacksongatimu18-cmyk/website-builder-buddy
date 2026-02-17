@@ -90,9 +90,8 @@ const CTA = () => {
               </h3>
               <p className="text-muted-foreground leading-relaxed max-w-3xl mx-auto">
                 If communities and organizations gain access to climate science, policy frameworks 
-                and investment-readiness training, they will mainstream resilience into their programs, 
-                meet national and global climate commitments, and unlock climate finance—accelerating 
-                climate action at local, national, and regional levels.
+                and investment-readiness training, they will mainstream resilience into their programs to, 
+                meet national and global climate commitments.
               </p>
             </div>
           </div>
