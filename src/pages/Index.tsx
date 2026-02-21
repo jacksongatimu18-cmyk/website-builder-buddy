@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 
 import AcademyBanner from "@/components/AcademyBanner";
+import ResourcesPreview from "@/components/ResourcesPreview";
 import Impact from "@/components/Impact";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -16,6 +17,7 @@ const Index = () => {
         <About />
         
         <AcademyBanner />
+        <ResourcesPreview />
         <Impact />
         <CTA />
         <Footer />

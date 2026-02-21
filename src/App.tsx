@@ -9,6 +9,7 @@ import Academy from "./pages/Academy";
 import CourseDetail from "./pages/CourseDetail";
 import LessonViewer from "./pages/LessonViewer";
 import TeamPage from "./pages/TeamPage";
+import Resources from "./pages/Resources";
 import NotFound from "./pages/NotFound";
 import TextToSpeech from "./components/TextToSpeech";
 import ClimateAssistant from "./components/ClimateAssistant";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/team" element={<TeamPage />} />
+          <Route path="/resources" element={<Resources />} />
           <Route path="/academy" element={<Academy />} />
           <Route path="/academy/course/:slug" element={<CourseDetail />} />
           <Route path="/academy/lesson/:lessonId" element={<LessonViewer />} />
