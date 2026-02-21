@@ -1,5 +1,6 @@
-import { TreePine, Sprout, Droplets, Zap } from "lucide-react";
+import { Handshake } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import muemActionLogo from "@/assets/partner-muemaction.png";
 
 const stats = [
   { value: "100", label: "Youth Climate Negotiators Trained", suffix: "+" },
@@ -10,30 +11,16 @@ const stats = [
   { value: "6", label: "Storytelling Sessions Hosted", suffix: "" },
 ];
 
-const initiatives = [
+const partners = [
   {
-    icon: TreePine,
-    title: "Forest Restoration",
-    description: "2 forest restoration programs across the country",
-    color: "text-green-600 bg-green-100",
+    name: "MuemAction Post",
+    logo: muemActionLogo,
+    description: "Media partner amplifying climate stories and youth voices across Africa.",
   },
   {
-    icon: Sprout,
-    title: "Climate Smart Agriculture",
-    description: "2 climate smart agriculture projects identified and developed",
-    color: "text-emerald-600 bg-emerald-100",
-  },
-  {
-    icon: Droplets,
-    title: "Water Resource Management",
-    description: "1 water resource management program across the country",
-    color: "text-blue-600 bg-blue-100",
-  },
-  {
-    icon: Zap,
-    title: "Renewable Energy & E-Mobility",
-    description: "2 renewable energy and e-mobility programs across the country",
-    color: "text-amber-600 bg-amber-100",
+    name: "Royal Danish Embassy in Kenya",
+    logo: null,
+    description: "Supporting climate resilience and sustainable development initiatives in Kenya.",
   },
 ];
 
@@ -77,7 +64,7 @@ const Impact = () => {
           ))}
         </div>
 
-        {/* Africa Climate Edition */}
+        {/* Partners */}
         <div 
           ref={initiativesRef}
           className={`bg-hero-gradient rounded-3xl p-8 md:p-12 overflow-hidden relative transition-all duration-700 ${
@@ -88,32 +75,36 @@ const Impact = () => {
           
           <div className="relative z-10">
             <div className="text-center mb-12">
-              <span className="inline-block px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium mb-4">
-                Africa Climate Edition
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium mb-4">
+                <Handshake className="w-4 h-4" />
+                Our Partners
               </span>
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Community-Driven Climate Solutions
+                Collaborating for Climate Action
               </h3>
               <p className="text-white/70 max-w-2xl mx-auto">
-                Implementing on-ground environmental and climate solutions that reduce carbon footprints, 
-                promote sustainability and strengthen resilience.
+                We work alongside trusted partners to amplify impact, scale solutions, and drive meaningful change in communities across Africa.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {initiatives.map((initiative, index) => (
+            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              {partners.map((partner, index) => (
                 <div
-                  key={initiative.title}
-                  className={`bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 transition-all duration-500 hover:bg-white/20 hover:-translate-y-1 ${
+                  key={partner.name}
+                  className={`bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 transition-all duration-500 hover:bg-white/20 hover:-translate-y-1 flex flex-col items-center text-center ${
                     initiativesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                   }`}
-                  style={{ transitionDelay: `${200 + index * 100}ms` }}
+                  style={{ transitionDelay: `${200 + index * 150}ms` }}
                 >
-                  <div className={`w-12 h-12 rounded-xl ${initiative.color} flex items-center justify-center mb-4 transition-transform duration-300 hover:scale-110`}>
-                    <initiative.icon className="w-6 h-6" />
+                  <div className="w-28 h-28 rounded-2xl bg-white flex items-center justify-center mb-5 overflow-hidden">
+                    {partner.logo ? (
+                      <img src={partner.logo} alt={partner.name} className="w-24 h-24 object-contain" />
+                    ) : (
+                      <span className="text-3xl font-bold text-primary/60">🇩🇰</span>
+                    )}
                   </div>
-                  <h4 className="text-lg font-semibold text-white mb-2">{initiative.title}</h4>
-                  <p className="text-white/60 text-sm">{initiative.description}</p>
+                  <h4 className="text-lg font-semibold text-white mb-2">{partner.name}</h4>
+                  <p className="text-white/60 text-sm">{partner.description}</p>
                 </div>
               ))}
             </div>
