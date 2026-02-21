@@ -12,16 +12,8 @@ const stats = [
 ];
 
 const partners = [
-  {
-    name: "MuemAction Post",
-    logo: muemActionLogo,
-    description: "Media partner amplifying climate stories and youth voices across Africa.",
-  },
-  {
-    name: "Royal Danish Embassy in Kenya",
-    logo: null,
-    description: "Supporting climate resilience and sustainable development initiatives in Kenya.",
-  },
+  { name: "MuemAction Post", logo: muemActionLogo },
+  { name: "Royal Danish Embassy in Kenya", logo: null },
 ];
 
 const Impact = () => {
@@ -87,24 +79,23 @@ const Impact = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-6">
               {partners.map((partner, index) => (
                 <div
                   key={partner.name}
-                  className={`bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 transition-all duration-500 hover:bg-white/20 hover:-translate-y-1 flex flex-col items-center text-center ${
+                  className={`bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-5 border border-white/10 transition-all duration-500 hover:bg-white/20 hover:-translate-y-1 flex flex-col items-center text-center w-40 ${
                     initiativesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                   }`}
-                  style={{ transitionDelay: `${200 + index * 150}ms` }}
+                  style={{ transitionDelay: `${200 + index * 100}ms` }}
                 >
-                  <div className="w-28 h-28 rounded-2xl bg-white flex items-center justify-center mb-5 overflow-hidden">
+                  <div className="w-20 h-20 rounded-xl bg-white flex items-center justify-center mb-3 overflow-hidden">
                     {partner.logo ? (
-                      <img src={partner.logo} alt={partner.name} className="w-24 h-24 object-contain" />
+                      <img src={partner.logo} alt={partner.name} className="w-16 h-16 object-contain" />
                     ) : (
-                      <span className="text-3xl font-bold text-primary/60">🇩🇰</span>
+                      <span className="text-2xl">🇩🇰</span>
                     )}
                   </div>
-                  <h4 className="text-lg font-semibold text-white mb-2">{partner.name}</h4>
-                  <p className="text-white/60 text-sm">{partner.description}</p>
+                  <p className="text-sm font-medium text-white leading-tight">{partner.name}</p>
                 </div>
               ))}
             </div>
